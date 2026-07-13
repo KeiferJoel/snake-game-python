@@ -15,8 +15,24 @@ running = True
 while running:
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+        snake.move()
+        
+    if event.type == pygame.QUIT:
+        running = False
+
+    if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_UP:
+            snake.change_direction((0, -1))
+
+        elif event.key == pygame.K_DOWN:
+            snake.change_direction((0, 1))
+
+        elif event.key == pygame.K_LEFT:
+            snake.change_direction((-1, 0))
+
+        elif event.key == pygame.K_RIGHT:
+            snake.change_direction((1, 0))
+
 
     screen.fill(BACKGROUND)
     snake.draw(screen)
