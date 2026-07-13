@@ -4,6 +4,7 @@ from src.settings import CELL_SIZE, SNAKE
 
 class Snake:
     def __init__(self):
+        self.grow = False
         self.body = [
             (10, 10),
             (9, 10),
@@ -23,8 +24,12 @@ class Snake:
         # Agrega la nueva cabeza
         self.body.insert(0, new_head)
 
-        # Elimina la cola
-        self.body.pop()
+        if not self.grow:
+            self.body.pop()
+        else:
+            self.grow = False
+
+    
 
     def change_direction(self, direction):
         dx, dy = self.direction
@@ -47,3 +52,6 @@ class Snake:
                 rect,
                 border_radius=5
             )
+
+            def eat(self):
+                self.grow = True  # Activa la bandera de crecimiento

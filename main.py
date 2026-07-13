@@ -1,14 +1,19 @@
 import pygame
 from src.settings import *
 from src.snake import Snake
+from src.food import Food
 
 pygame.init()
+font = pygame.font.SysFont("Arial", 28)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption(TITLE)
 
 clock = pygame.time.Clock()
 snake = Snake()
+food = Food()
+
+score = 0
 
 running = True
 
@@ -17,6 +22,17 @@ while running:
     for event in pygame.event.get():
         snake.move()
         
+        if snake .body[0] == food.position:
+            snake.eat()
+            food.randomize(snake.body)
+            score += 1
+        
+
+        score_text = font.render(f"Score: {score}", True, TEXT)
+        screen.blit(score_text, (15, 15))
+
+        
+
     if event.type == pygame.QUIT:
         running = False
 
@@ -36,6 +52,7 @@ while running:
 
     screen.fill(BACKGROUND)
     snake.draw(screen)
+    food.draw(screen)
     pygame.display.flip()
 
     clock.tick(FPS)
